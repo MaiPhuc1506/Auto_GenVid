@@ -3,9 +3,9 @@
   "metadata": {
     "title": "Apple ra mắt iPhone 17 với camera 200MP",
     "source": {
-      "url": "https://vnexpress.net/iphone-17-200mp",
-      "domain": "vnexpress.net",
-      "image": "https://i1-vnexpress.vnecdn.net/iphone17.jpg"
+      "url": "https://github.com/Cuongyd196/auto-compare-video",
+      "domain": "github.com",
+      "image": "https://opengraph.githubassets.com/1/Cuongyd196/auto-compare-video"
     },
     "channel": "Công nghệ 24h"
   },
@@ -73,7 +73,7 @@
       "id": "outro",
       "type": "outro",
       "voiceText": "Theo dõi Công nghệ 24h.",
-      "templateData": { "template": "outro", "ctaTop": "Theo dõi ngay", "channelName": "Công nghệ 24h", "source": "vnexpress.net" }
+      "templateData": { "template": "outro", "ctaTop": "Theo dõi ngay", "channelName": "Công nghệ 24h", "source": "github.com" }
     }
   ]
 }

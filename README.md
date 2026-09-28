@@ -96,7 +96,7 @@ cp .env.example .env.local
 ##### 👉 Với Google Antigravity IDE
 Mở project trong Antigravity IDE, tại khung chat gõ lệnh:
 ```text
-/create-news-video https://vnexpress.net/bai-viet-cua-ban...
+/create-news-video https://github.com/Cuongyd196/auto-compare-video
 ```
 
 ##### 👉 Với Anthropic Claude Code
@@ -104,11 +104,11 @@ Mở terminal tại thư mục dự án và chạy:
 ```bash
 claude
 # Trong màn hình tương tác Claude Code, gõ:
-/create-news-video https://vnexpress.net/bai-viet-cua-ban...
+/create-news-video https://github.com/Cuongyd196/auto-compare-video
 ```
 
 > 💡 **Quy trình AI tự động xử lý:**
-> 1. Đọc bài báo từ URL hoặc file .txt tiếng Việt.
+> 1. Đọc nội dung từ URL (repo GitHub, bài báo) hoặc file .txt tiếng Việt.
 > 2. Viết lời bình tiếng Việt chuẩn ngữ âm, chia cảnh và chọn template motion graphics.
 > 3. Tự gọi pipeline: sinh voice (Edge TTS Free) + render HyperFrames + mix nhạc & SFX.
 > 4. Xuất video `.mp4` cùng file `caption.txt` có sẵn hashtag đăng TikTok!

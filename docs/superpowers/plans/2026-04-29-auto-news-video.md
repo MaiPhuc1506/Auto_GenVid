@@ -194,9 +194,9 @@ git commit -m "chore: initial project scaffold"
   "metadata": {
     "title": "Apple ra mắt iPhone 17 với camera 200MP",
     "source": {
-      "url": "https://vnexpress.net/iphone-17-200mp",
-      "domain": "vnexpress.net",
-      "image": "https://i1-vnexpress.vnecdn.net/iphone17.jpg"
+      "url": "https://github.com/Cuongyd196/auto-compare-video",
+      "domain": "github.com",
+      "image": "https://opengraph.githubassets.com/1/Cuongyd196/auto-compare-video"
     },
     "channel": "Công nghệ 24h"
   },
@@ -286,7 +286,7 @@ git commit -m "chore: initial project scaffold"
           "lines": [
             { "content": "Theo dõi để xem bản tin mới mỗi ngày", "emphasis": "primary", "animation": "fade-in" },
             { "content": "Công nghệ 24h", "emphasis": "channel", "animation": "scale-pop" },
-            { "content": "Nguồn: vnexpress.net", "emphasis": "muted", "animation": "fade-in-late" }
+            { "content": "Nguồn: github.com", "emphasis": "muted", "animation": "fade-in-late" }
           ]
         }
       }
@@ -1875,7 +1875,7 @@ Single argument: a news article URL (starts with `http://` or `https://`) OR a p
   - title (string): tiêu đề bài báo
   - content (string): nội dung chính, ~500-1500 từ
   - ogImage (string|null): URL ảnh og:image (meta og:image hoặc ảnh đầu bài)
-  - domain (string): domain của URL (vd "vnexpress.net")
+  - domain (string): domain của URL (vd "github.com")
   Trả về JSON với 4 field trên.
   ```
 - If WebFetch fails (paywall, JS-rendered, 4xx) → tell user to save content to a .txt file and pass that instead. Stop.
@@ -1984,9 +1984,9 @@ Tổng thời lượng: XX.Xs
 
 ## Examples
 
-### Example 1: URL with image (vnexpress)
+### Example 1: URL with image (GitHub)
 
-User: `/create-news-video https://vnexpress.net/iphone-17-200mp`
+User: `/create-news-video https://github.com/Cuongyd196/auto-compare-video`
 
 Generated `script.json` (excerpt):
 ```json
@@ -1995,9 +1995,9 @@ Generated `script.json` (excerpt):
   "metadata": {
     "title": "Apple ra mắt iPhone 17 với camera 200MP",
     "source": {
-      "url": "https://vnexpress.net/iphone-17-200mp",
-      "domain": "vnexpress.net",
-      "image": "https://i1-vnexpress.vnecdn.net/iphone17.jpg"
+      "url": "https://github.com/Cuongyd196/auto-compare-video",
+      "domain": "github.com",
+      "image": "https://opengraph.githubassets.com/1/Cuongyd196/auto-compare-video"
     },
     "channel": "Công nghệ 24h"
   },
@@ -2119,7 +2119,7 @@ npm test          # all tests pass
 Trong Claude Code:
 
 ```
-/create-news-video https://vnexpress.net/iphone-17-200mp
+/create-news-video https://github.com/Cuongyd196/auto-compare-video
 ```
 
 Hoặc với file txt:
@@ -2219,10 +2219,10 @@ Claude should recognize the skill and ask for an argument.
 
 - [ ] **Step 3: Real URL test**
 
-Pick a recent tin tức công nghệ from vnexpress, dantri, or genk:
+Pick a recent tin tức công nghệ from GitHub hoặc báo:
 
 ```
-/create-news-video https://vnexpress.net/<some-current-article>
+/create-news-video https://github.com/Cuongyd196/auto-compare-video
 ```
 
 Watch the 8 step output. Verify:

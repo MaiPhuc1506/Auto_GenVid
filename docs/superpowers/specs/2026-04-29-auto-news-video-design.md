@@ -78,9 +78,9 @@ NODE CLI (deterministic, có test)
   "metadata": {
     "title": "Apple ra mắt iPhone 17 với camera 200MP",
     "source": {
-      "url": "https://vnexpress.net/...",
-      "domain": "vnexpress.net",
-      "image": "https://i1-vnexpress.vnecdn.net/.../iphone17.jpg"
+      "url": "https://github.com/Cuongyd196/auto-compare-video",
+      "domain": "github.com",
+      "image": "https://opengraph.githubassets.com/1/Cuongyd196/auto-compare-video"
     },
     "channel": "Công nghệ 24h"
   },
@@ -122,7 +122,7 @@ NODE CLI (deterministic, có test)
           "lines": [
             { "content": "Theo dõi để xem bản tin mới mỗi ngày", "emphasis": "primary", "animation": "fade-in" },
             { "content": "Công nghệ 24h",                        "emphasis": "channel", "animation": "scale-pop" },
-            { "content": "Nguồn: vnexpress.net",                 "emphasis": "muted",   "animation": "fade-in-late" }
+            { "content": "Nguồn: github.com",                 "emphasis": "muted",   "animation": "fade-in-late" }
           ]
         }
       }
@@ -356,7 +356,7 @@ STEP 8. Báo cáo cho user
 ### 7.3. Examples trong skill body
 
 Skill kèm **2 example script.json hoàn chỉnh**:
-- 1 cho URL có ảnh (vnexpress demo)
+- 1 cho URL có ảnh (GitHub demo)
 - 1 cho txt không ảnh (gradient fallback)
 
 Để Claude reference khi sinh — quan trọng cho consistency output.
@@ -387,7 +387,7 @@ Skill kèm **2 example script.json hoàn chỉnh**:
 ## 9. Definition of Done — MVP
 
 1. Setup 1 lần: `npm install`, copy `.env.example` → `.env.local`, fill API key
-2. Trong Claude Code chạy `/create-news-video https://vnexpress.net/<bài-bất-kỳ>`
+2. Trong Claude Code chạy `/create-news-video https://github.com/Cuongyd196/auto-compare-video`
 3. < 5 phút sau có `video.mp4` 9:16, voice tiếng Việt khớp visual, có hook hấp dẫn 3s đầu, có outro card đúng format
 4. Toàn bộ unit test pass
 5. README có hướng dẫn setup + usage cơ bản

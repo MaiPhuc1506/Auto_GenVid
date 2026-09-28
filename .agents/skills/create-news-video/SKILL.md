@@ -26,7 +26,7 @@ Single argument: a news article URL (starts with `http://` or `https://`) OR a p
   - `title` (string): tiêu đề bài báo
   - `content` (string): nội dung chính, ~500-1500 từ
   - `ogImage` (string|null): URL ảnh og:image (meta og:image hoặc ảnh đầu bài)
-  - `domain` (string): domain của URL (vd "vnexpress.net")
+  - `domain` (string): domain của URL (vd "github.com")
 - If fetching fails (paywall, blocking, 4xx) → tell user to save content to a .txt file and pass that instead. Stop.
 
 **File mode:**
