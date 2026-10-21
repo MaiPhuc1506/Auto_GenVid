@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auto Video Gen — Studio Tạo Video Ngắn 9:16 Tự Động Bằng AI</title>
+  <meta name="description" content="Biến URL bài báo và Repo GitHub thành Video TikTok, Reels, Shorts 9:16 chất lượng cao với đồ họa Motion Graphics và giọng đọc tiếng Việt miễn phí.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="app-header" id="appHeader">
+    <div class="header-container">
+      <div class="brand">
+        <div class="brand-logo">
+          <span class="logo-icon">🎬</span>
+        </div>
+        <div class="brand-info">
+          <h1 class="brand-title">Auto Video Gen</h1>
+          <p class="brand-subtitle">AI Motion Graphics · TikTok 9:16 Creator</p>
+        </div>
+      </div>
+      
+      <div class="header-actions">
+        <div class="status-pill free-badge" id="ttsStatusBadge" title="Đang sử dụng Microsoft Edge TTS miễn phí, không tốn tiền API">
+          <span class="status-dot green"></span>
+          <span class="status-text">Edge TTS (0đ Miễn phí)</span>
+        </div>
+        <button class="btn btn-outline" id="btnOpenStudioPreview" title="Mở HyperFrames Live Studio Preview">
+          <span class="icon">✨</span>
+          <span>HyperFrames Studio</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-content" id="mainContent">
+    <!-- Hero Banner -->
+    <section class="hero-section">
+      <div class="hero-content">
+        <div class="hero-tag">🚀 AI Video Pipeline v2.0</div>
+        <h2 class="hero-heading">Biến Bài Báo & GitHub Thành Video TikTok Trong 1 Phút</h2>
+        <p class="hero-desc">Tự động viết kịch bản tiếng Việt chuẩn ngữ âm, ghép giọng đọc AI tự nhiên, thiết kế motion graphics 1080x1920 và mix âm thanh SFX hoàn chỉnh.</p>
+      </div>
+    </section>
+
+    <!-- Studio Grid -->
+    <div class="studio-layout">
+      <!-- Left Column: Creator Panel -->
+      <section class="creator-panel glass-card" id="creatorPanel">
+        <!-- Tabs -->
+        <div class="tabs-nav" id="tabsNav" role="tablist">
+          <button class="tab-btn active" id="tabUrl" data-tab="url">
+            <span class="tab-icon">🔗</span>
+            <span>Từ URL Bài Báo / GitHub</span>
+          </button>
+          <button class="tab-btn" id="tabText" data-tab="text">
+            <span class="tab-icon">✍️</span>
+            <span>Từ Văn Bản / Chủ Đề</span>
+          </button>
+          <button class="tab-btn" id="tabScript" data-tab="script">
+            <span class="tab-icon">🛠️</span>
+            <span>Chỉnh Sửa Kịch Bản (JSON)</span>
+          </button>
+        </div>
+
+        <!-- Tab 1: URL Mode -->
+        <div class="tab-pane active" id="paneUrl">
+          <form id="formUrlMode" onsubmit="return false;">
+            <div class="form-group">
+              <label for="inputArticleUrl">Đường dẫn bài báo hoặc link GitHub</label>
+              <div class="input-with-button">
+                <input type="url" id="inputArticleUrl" placeholder="https://vnexpress.net/... hoặc https://github.com/..." required>
+                <button type="button" class="btn btn-secondary" id="btnExtractUrl">
+                  <span class="btn-text">Quét Dữ Liệu</span>
+                </button>
+              </div>
+              <span class="field-hint">Hỗ trợ các trang tin tức VnExpress, Dân Trí, GenK, TechCrunch, GitHub repositories,...</span>
+            </div>
+
+            <!-- Preview Extracted Info -->
+            <div class="extracted-card" id="extractedCard" style="display: none;">
+              <div class="extracted-thumb-wrapper" id="extractedThumbWrapper">
+                <img id="extractedThumb" src="" alt="Thumbnail" class="extracted-thumb">
+              </div>
+              <div class="extracted-meta">
+                <div class="extracted-badge" id="extractedDomain">domain.com</div>
+                <h4 class="extracted-title" id="extractedTitle">Tiêu đề bài báo</h4>
+                <p class="extracted-snippet" id="extractedSnippet">Đoạn trích dẫn nội dung...</p>
+              </div>
+            </div>
+
+            <!-- Channel & Voice Settings -->
+            <div class="form-row">
+              <div class="form-group col-6">
+                <label for="selectVoiceUrl">Giọng đọc (Edge TTS)</label>
+                <select id="selectVoiceUrl">
+                  <option value="vi-VN-NamMinhNeural" selected>Nam Minh (Nam - Giọng chuẩn Miền Bắc)</option>
+                  <option value="vi-VN-HoaiMyNeural">Hoài My (Nữ - Giọng chuẩn Miền Bắc)</option>
+                </select>
+              </div>
+              <div class="form-group col-6">
+                <label for="inputChannelUrl">Tên kênh hiển thị</label>
+                <input type="text" id="inputChannelUrl" value="Công Nghệ 24h">
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="btn btn-primary btn-glow btn-large" id="btnSubmitUrl">
+                <span class="icon">⚡</span>
+                <span>Bắt Đầu Tạo Video Ngay</span>
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Tab 2: Custom Text Mode -->
+        <div class="tab-pane" id="paneText">
+          <form id="formTextMode" onsubmit="return false;">
+            <div class="form-group">
+              <label for="inputTextTitle">Tiêu đề bản tin / Video</label>
+              <input type="text" id="inputTextTitle" placeholder="Ví dụ: Apple vừa ra mắt chip M5 mạnh gấp đôi đời cũ..." required>
+            </div>
+
+            <div class="form-group">
+              <label for="inputTextBody">Nội dung chi tiết hoặc các ý nổi bật</label>
+              <textarea id="inputTextBody" rows="5" placeholder="Nhập các đoạn văn bản tóm tắt hoặc gạch đầu dòng các điểm tin chính... AI sẽ tự phân bổ thành các cảnh Hook, Số liệu và Kết bài." required></textarea>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-6">
+                <label for="selectVoiceText">Giọng đọc</label>
+                <select id="selectVoiceText">
+                  <option value="vi-VN-NamMinhNeural" selected>Nam Minh (Nam)</option>
+                  <option value="vi-VN-HoaiMyNeural">Hoài My (Nữ)</option>
+                </select>
+              </div>
+              <div class="form-group col-6">
+                <label for="inputChannelText">Tên kênh hiển thị</label>
+                <input type="text" id="inputChannelText" value="Tin Tức AI 24h">
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="btn btn-primary btn-glow btn-large" id="btnSubmitText">
+                <span class="icon">⚡</span>
+                <span>Tạo Video Từ Văn Bản</span>
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Tab 3: Script JSON Editor -->
+        <div class="tab-pane" id="paneScript">
+          <div class="editor-header">
+            <span class="editor-title">Tùy biến từng cảnh (Scenes) & Lời thoại</span>
+            <button type="button" class="btn btn-sm btn-outline" id="btnLoadSampleScript">Nạp Kịch Bản Mẫu</button>
+          </div>
+          <div class="form-group">
+            <textarea id="inputScriptJson" class="code-editor" rows="14" spellcheck="false" placeholder="Dán nội dung script.json vào đây..."></textarea>
+          </div>
+          <div class="form-actions">
+            <button type="button" class="btn btn-primary btn-glow" id="btnSubmitCustomScript">
+              <span class="icon">🚀</span>
+              <span>Render Kịch Bản Này</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Column: Quick Preview & Tips -->
+      <section class="tips-panel glass-card">
+        <h3 class="panel-heading">
+          <span class="icon">💡</span>
+          <span>Bí Quyết Tạo Video Viral</span>
+        </h3>
+        
+        <div class="tips-list">
+          <div class="tip-item">
+            <div class="tip-num">01</div>
+            <div class="tip-body">
+              <strong>3 Giây Đầu Quyết Định:</strong> Cảnh Hook đầu tiên luôn có hiệu ứng chữ giật flash và số liệu gây tò mò để giữ chân người xem TikTok.
+            </div>
+          </div>
+          <div class="tip-item">
+            <div class="tip-num">02</div>
+            <div class="tip-body">
+              <strong>Tự Động Chuẩn Hóa Số Liệu:</strong> Hệ thống tự động chuyển các ký tự "5.5" thành "năm chấm năm", "82.7%" thành "tám mươi hai phẩy bảy phần trăm" để AI đọc mượt mà.
+            </div>
+          </div>
+          <div class="tip-item">
+            <div class="tip-num">03</div>
+            <div class="tip-body">
+              <strong>Khung Hình 9:16 Chuẩn Studio:</strong> Video thành phẩm có tỷ lệ 1080x1920 sắc nét, tự sinh caption kèm 4 hashtag tối ưu thuật toán tìm kiếm.
+            </div>
+          </div>
+        </div>
+
+        <div class="pipeline-summary-card">
+          <div class="summary-title">⚡ Các bước trong Pipeline tự động:</div>
+          <ul class="summary-steps">
+            <li><span class="step-badge">1</span> Đọc dữ liệu & Sinh kịch bản JSON</li>
+            <li><span class="step-badge">2</span> Thu âm giọng đọc Edge TTS (0đ)</li>
+            <li><span class="step-badge">3</span> Mix âm thanh, nhịp điệu & SFX</li>
+            <li><span class="step-badge">4</span> Render HyperFrames thành MP4</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+
+    <!-- Video Library Section -->
+    <section class="library-section" id="librarySection">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <h3 class="section-title">📂 Thư Viện Video Đã Tạo</h3>
+          <span class="badge" id="videoCountBadge">0 Video</span>
+        </div>
+        <button class="btn btn-sm btn-secondary" id="btnRefreshVideos">
+          <span class="icon">🔄</span>
+          <span>Làm Mới</span>
+        </button>
+      </div>
+
+      <div class="video-grid" id="videoGrid">
+        <div class="empty-state" id="emptyState">
+          <span class="empty-icon">🎬</span>
+          <p>Chưa có video nào trong thư mục output. Hãy tạo video đầu tiên của bạn ở trên!</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Realtime Generation Modal -->
+  <div class="modal-overlay" id="progressModal" style="display: none;">
+    <div class="modal-content glass-card">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <span class="modal-spinner"></span>
+          <h3 class="modal-title" id="progressModalTitle">Đang Tạo Video...</h3>
+        </div>
+        <span class="job-id-tag" id="progressJobId">job-id</span>
+      </div>
+
+      <div class="progress-container">
+        <div class="progress-meta">
+          <span class="progress-step-text" id="progressStepText">Bước 1/8: Chuẩn bị...</span>
+          <span class="progress-percentage" id="progressPercent">12%</span>
+        </div>
+        <div class="progress-bar-track">
+          <div class="progress-bar-fill" id="progressBarFill" style="width: 12%;"></div>
+        </div>
+      </div>
+
+      <!-- Checklist -->
+      <div class="steps-checklist" id="stepsChecklist">
+        <div class="step-row" data-step="1">
+          <span class="step-icon">1</span>
+          <span class="step-label">Đọc bài viết & cấu trúc kịch bản</span>
+        </div>
+        <div class="step-row" data-step="2">
+          <span class="step-icon">2</span>
+          <span class="step-label">Chuẩn hóa ngữ âm tiếng Việt (script.txt)</span>
+        </div>
+        <div class="step-row" data-step="3">
+          <span class="step-icon">3</span>
+          <span class="step-label">Tải hình ảnh minh họa (og:image)</span>
+        </div>
+        <div class="step-row" data-step="4">
+          <span class="step-icon">4</span>
+          <span class="step-label">Tạo giọng đọc Edge TTS cho từng cảnh</span>
+        </div>
+        <div class="step-row" data-step="5">
+          <span class="step-icon">5</span>
+          <span class="step-label">Hòa âm, mix hiệu ứng SFX & nhạc nền</span>
+        </div>
+        <div class="step-row" data-step="6">
+          <span class="step-icon">6</span>
+          <span class="step-label">Dựng bố cục Motion Graphics (HTML/CSS)</span>
+        </div>
+        <div class="step-row" data-step="7">
+          <span class="step-icon">7</span>
+          <span class="step-label">Render khung hình video MP4 1080x1920</span>
+        </div>
+        <div class="step-row" data-step="8">
+          <span class="step-icon">8</span>
+          <span class="step-label">Tạo caption TikTok & Hoàn tất</span>
+        </div>
+      </div>
+
+      <!-- Collapsible Live Logs -->
+      <div class="live-logs-wrapper">
+        <div class="logs-header" id="logsToggle">
+          <span>📜 Nhật ký xử lý chi tiết (Terminal Logs)</span>
+          <span class="toggle-arrow">▼</span>
+        </div>
+        <div class="logs-console" id="logsConsole">
+          <div class="log-line text-muted">Đang kết nối tới server...</div>
+        </div>
+      </div>
+
+      <div class="modal-footer" id="modalFooter" style="display: none;">
+        <button class="btn btn-secondary" id="btnCloseProgressModal">Đóng</button>
+        <button class="btn btn-primary btn-glow" id="btnViewResultVideo">
+          <span>Xem Video Thành Phẩm 🎬</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Video Player Preview Modal -->
+  <div class="modal-overlay" id="playerModal" style="display: none;">
+    <div class="modal-content glass-card player-modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="playerModalTitle">Chi Tiết Video</h3>
+        <button class="btn-close" id="btnClosePlayerModal">✕</button>
+      </div>
+
+      <div class="player-body">
+        <!-- Phone Frame Container -->
+        <div class="phone-frame">
+          <video id="activeVideoPlayer" controls playsinline loop class="vertical-video"></video>
+        </div>
+
+        <!-- Info & Actions -->
+        <div class="player-info-column">
+          <div class="info-block">
+            <h4 class="video-info-title" id="playerVideoTitle">Tiêu đề video</h4>
+            <div class="video-info-meta" id="playerVideoMeta">30 giây · 98 MB · 1080x1920</div>
+          </div>
+
+          <div class="info-block">
+            <div class="info-label">Caption & Hashtag sẵn sàng đăng TikTok:</div>
+            <div class="caption-box" id="playerCaptionBox">
+              Nội dung caption sẽ hiển thị ở đây...
+            </div>
+            <button class="btn btn-sm btn-outline" id="btnCopyCaption">
+              <span class="icon">📋</span>
+              <span>Sao Chép Caption</span>
+            </button>
+          </div>
+
+          <div class="action-buttons-group">
+            <a href="#" download id="btnDownloadMp4" class="btn btn-primary">
+              <span class="icon">⬇️</span>
+              <span>Tải Video MP4</span>
+            </a>
+            <a href="#" download id="btnDownloadMp3" class="btn btn-secondary">
+              <span class="icon">🎙️</span>
+              <span>Tải Audio MP3 (CapCut)</span>
+            </a>
+            <button class="btn btn-outline" id="btnOpenInStudio">
+              <span class="icon">🎨</span>
+              <span>Mở HyperFrames Preview</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast-notification" id="toastNotification">
+    <span class="toast-message" id="toastMessage">Thông báo</span>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

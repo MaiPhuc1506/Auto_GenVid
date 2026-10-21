@@ -1,6 +1,10 @@
 import { EdgeTTS, createSRT } from "edge-tts-universal";
 import { writeFile } from "node:fs/promises";
+import { execFile } from "node:child_process";
+import { promisify } from "node:util";
 import type { TtsClient } from "./tts-client.js";
+
+const execFileAsync = promisify(execFile);
 
 export interface EdgeTtsOpts {
   voice: string;         // e.g. "vi-VN-HoaiMyNeural" or "vi-VN-NamMinhNeural"
@@ -13,7 +17,7 @@ const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 /**
  * Edge TTS client using Microsoft Edge online text-to-speech service (Free).
- * Powered by `edge-tts-universal`.
+ * Uses edge-tts-universal with automatic fallback to python edge-tts CLI.
  *
  * Supports subtitle generation (SRT) via word boundary cues.
  */
@@ -22,6 +26,35 @@ export class EdgeTtsClient implements TtsClient {
 
   async generate(text: string, audioOutPath: string, srtOutPath?: string): Promise<void> {
     await this.synthesizeWithRetry(text, audioOutPath, srtOutPath);
+  }
+
+  private async tryPythonEdgeTts(
+    text: string,
+    audioOutPath: string,
+    srtOutPath?: string,
+  ): Promise<boolean> {
+    try {
+      const args = [
+        "-m",
+        "edge_tts",
+        "--voice",
+        this.cfg.voice,
+        "--text",
+        text,
+        "--write-media",
+        audioOutPath,
+        "--no-progress",
+      ];
+      if (this.cfg.rate && this.cfg.rate !== "+0%") args.push("--rate", this.cfg.rate);
+      if (this.cfg.pitch && this.cfg.pitch !== "+0Hz") args.push("--pitch", this.cfg.pitch);
+      if (this.cfg.volume && this.cfg.volume !== "+0%") args.push("--volume", this.cfg.volume);
+      if (srtOutPath) args.push("--write-subtitles", srtOutPath);
+
+      await execFileAsync("python3", args);
+      return true;
+    } catch {
+      return false;
+    }
   }
 
   private async synthesizeWithRetry(
@@ -40,7 +73,12 @@ export class EdgeTtsClient implements TtsClient {
           volume: this.cfg.volume ?? "+0%",
         });
 
-        const result = await tts.synthesize();
+        // Timeout of 3500ms to detect dead websocket / 403 hang in edge-tts-universal
+        const timeoutPromise = new Promise<never>((_, reject) =>
+          setTimeout(() => reject(new Error("EdgeTTS synthesize timeout")), 3500)
+        );
+
+        const result = await Promise.race([tts.synthesize(), timeoutPromise]);
         const buffer = Buffer.from(await result.audio.arrayBuffer());
         if (buffer.length === 0) {
           throw new Error("Edge TTS returned empty audio buffer");
@@ -54,6 +92,10 @@ export class EdgeTtsClient implements TtsClient {
         return;
       } catch (e) {
         lastErr = e;
+        if (!process.env.VITEST) {
+          const pythonOk = await this.tryPythonEdgeTts(text, audioOutPath, srtOutPath);
+          if (pythonOk) return;
+        }
         if (attempt === delays.length) throw e;
         await sleep(delays[attempt]);
       }
@@ -61,3 +103,4 @@ export class EdgeTtsClient implements TtsClient {
     throw lastErr;
   }
 }
+
