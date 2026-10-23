@@ -60,14 +60,11 @@ html, body {
 
 .brand-icon {
   width: 90px; height: 90px;
-  background: linear-gradient(135deg, #2563eb 0%, #0ea5e9 100%);
   border-radius: 20px;
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Courier New', monospace;
-  font-size: 32px; font-weight: 700; color: #fff;
-  letter-spacing: -0.05em;
+  object-fit: cover;
   box-shadow: 0 8px 24px rgba(37,99,235,0.35);
   flex-shrink: 0;
+  border: 2px solid rgba(0,0,0,0.1);
 }
 
 .brand-text {

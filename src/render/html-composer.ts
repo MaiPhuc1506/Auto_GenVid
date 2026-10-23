@@ -64,8 +64,8 @@ export function composeHtml(args: ComposeArgs): string {
     return renderScene(scene, start, duration, bgImageRelPath, tiktok, tiktokAvatar);
   }).join("\n");
 
-  // Persistent shell — uses tiktok handle in footer
-  const shellHtml = renderShell(script.metadata, tiktok);
+  // Persistent shell — uses tiktok handle in footer and avatar in header
+  const shellHtml = renderShell(script.metadata, tiktok, tiktokAvatar);
 
   const animJs = readFileSync(join(TPL_DIR, "animations.js"), "utf8");
 
@@ -80,7 +80,7 @@ export function composeHtml(args: ComposeArgs): string {
 }
 
 // ── PERSISTENT SHELL ───────────────────────────────────────────────────────
-function renderShell(metadata: Script["metadata"], tiktok: TiktokConfig): string {
+function renderShell(metadata: Script["metadata"], tiktok: TiktokConfig, avatarRelPath: string = "tiktok-avatar.jpg"): string {
   const channel = escapeHtml(metadata.channel);
   const domain = escapeHtml(metadata.source.domain);
   const handle = escapeHtml(tiktok.handle);
@@ -89,7 +89,7 @@ function renderShell(metadata: Script["metadata"], tiktok: TiktokConfig): string
 <div class="shell-bg"></div>
 
 <div class="brand-shell-header">
-  <div class="brand-icon">&gt;_</div>
+  <img class="brand-icon" src="${escapeHtml(avatarRelPath)}" alt="${channel}" />
   <div class="brand-text">
     <div class="brand-name">${channel}</div>
   </div>
