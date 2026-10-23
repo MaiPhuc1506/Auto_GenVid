@@ -273,13 +273,15 @@ ${ttCard}`.trim();
  * targeting elements with id="tt-card", id="tt-follow-btn", etc.
  */
 function renderTiktokCard(tiktok: TiktokConfig, avatarRelPath: string): string {
+  const followersHtml = tiktok.followers && tiktok.followers.trim() !== ""
+    ? `\n    <div class="tt-followers">${escapeHtml(tiktok.followers)}</div>`
+    : "";
   return `
 <div id="tt-card" class="tt-card">
   <img class="tt-avatar" src="${escapeHtml(avatarRelPath)}" alt="${escapeHtml(tiktok.displayName)}" crossorigin="anonymous" />
   <div class="tt-profile-info">
     <div class="tt-display-name">${escapeHtml(tiktok.displayName)}</div>
-    <div class="tt-handle">${escapeHtml(tiktok.handle)}</div>
-    <div class="tt-followers">${escapeHtml(tiktok.followers)}</div>
+    <div class="tt-handle">${escapeHtml(tiktok.handle)}</div>${followersHtml}
   </div>
   <div id="tt-follow-btn" class="tt-follow-btn">
     <span id="tt-btn-follow" class="tt-btn-text">Follow</span>
