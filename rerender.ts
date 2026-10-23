@@ -3,6 +3,10 @@
 //
 // Usage: npx tsx rerender.ts <outputDir>
 
+import { config as dotenvConfig } from "dotenv";
+dotenvConfig({ path: ".env.local" });
+dotenvConfig();
+
 import { readFile, writeFile, copyFile } from "node:fs/promises";
 import { join, dirname, basename } from "node:path";
 import { fileURLToPath } from "node:url";

@@ -92,7 +92,6 @@ function renderShell(metadata: Script["metadata"], tiktok: TiktokConfig): string
   <div class="brand-icon">&gt;_</div>
   <div class="brand-text">
     <div class="brand-name">${channel}</div>
-    <div class="brand-tag">BLOG IT</div>
   </div>
 </div>
 

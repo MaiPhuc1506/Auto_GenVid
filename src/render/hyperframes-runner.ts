@@ -21,6 +21,8 @@ export async function renderWithHyperframes(args: RenderArgs): Promise<void> {
     String(fps),
     "--quality",
     quality,
+    "--workers",
+    "2",
   ];
 
   await new Promise<void>((resolve, reject) => {

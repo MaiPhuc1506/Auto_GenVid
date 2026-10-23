@@ -1,4 +1,6 @@
-import "dotenv/config";
+import { config as dotenvConfig } from "dotenv";
+dotenvConfig({ path: ".env.local" });
+dotenvConfig();
 
 export type TtsProvider = "edge-tts" | "lucylab" | "elevenlabs" | "vbee";
 export type VideoTheme = "dark-neon" | "light-pro";
@@ -152,9 +154,9 @@ export function loadConfig(): Config {
     vbeePollIntervalMs: intDefault("VBEE_POLL_INTERVAL_MS", 2000),
     vbeePollTimeoutMs: intDefault("VBEE_POLL_TIMEOUT_MS", 60000),
     tiktok: {
-      displayName: process.env.TIKTOK_DISPLAY_NAME ?? "Công nghệ 24h",
-      handle: process.env.TIKTOK_HANDLE ?? "@congnghe24h",
-      followers: process.env.TIKTOK_FOLLOWERS ?? "1.2M followers",
+      displayName: process.env.TIKTOK_DISPLAY_NAME || "DevPeek36",
+      handle: process.env.TIKTOK_HANDLE || "@devpeek36",
+      followers: process.env.TIKTOK_FOLLOWERS || "",
       avatarUrl: process.env.TIKTOK_AVATAR_URL || undefined,
     },
     ttsConcurrency: intDefault("TTS_CONCURRENCY", 1),
